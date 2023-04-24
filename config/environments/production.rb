@@ -6,7 +6,7 @@ Rails.application.configure do
 
 
 
-  config.hosts << "localhost:3000"
+  config.hosts << "movie-review-app-bfus.onrender.com"
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
