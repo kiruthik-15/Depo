@@ -1,0 +1,29 @@
+<div class="card my-3">
+  <div class="card-body">
+    <h5 class="card-title"><%= @movie.title %> Review</h5>
+    <% if @reviews.present? %>
+      <% @reviews.each do |review| %>
+        <div class="my-3">
+          <% review.rating.to_i.times do %>
+            ⭐
+          <% end %>
+          <p class="card-text"><strong><%= review.comment %></strong></p>
+          <p class="card-text" style="font-size: small;"><small>Posted by: <%=review.user.email %></small></p>
+          <%= link_to 'Show', movie_review_path(@movie,review), class: 'btn btn-sm btn-primary' %>
+          <% if can? :update, review %>
+              <%= link_to 'Edit', edit_movie_review_path(@movie,review), class: 'btn btn-sm btn-secondary' %>
+          <% end %>
+            <% if can? :destroy, review %>
+              <%= button_to 'Destroy', movie_review_path(@movie,review), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+          <% end %>
+        </div>
+        <hr>
+      <% end %>
+      <%= will_paginate @reviews %>
+    <% else %>
+      <h3 style="font-size: small;"> N/A</h3>
+    <% end %>
+    <%= link_to 'New Review', new_movie_review_path(@movie), class: 'btn btn-sm btn-success' %>
+    <%= link_to 'Back', movies_path, class: 'btn btn-sm btn-outline-primary' %>
+  </div>
+</div>

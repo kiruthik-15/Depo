@@ -1,0 +1,51 @@
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title">Movies</h5>
+  </div>
+  <div class="card-body">
+    <%= form_tag movies_path, method: :get, class: "row gy-2 gx-3 align-items-center" do %>
+      <div class="col-auto">
+        <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search by movie name" %>
+      </div>
+      <div class="col-auto">
+        <%= label_tag :released_on, "Search by Released Date", class: "visually-hidden" %>
+        <%= date_field_tag :released_on, params[:released_on], class: "form-control", placeholder: "Released Date" %>
+      </div>
+      <div class="col-auto">
+        <%= submit_tag "Search", class: "btn btn-primary" %>
+      </div>
+      <div class="col-auto">
+        <%= link_to 'Cancel', movies_path, class: "btn btn-secondary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<br>
+<div class="row">
+  <% @movies.each do |movie| %>
+    <div class="col-md-4">
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <% if movie.image.attached? %>
+              <%= image_tag(movie.image,  size: "150x180") %>
+            <% end %>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><%= movie.title %></h5>
+              <p class="card-text"><small class="text-muted">Release date: <%= movie.release_date.strftime("%B %d, %Y") %></small></p>
+              <p class="card-text"><small class="text-muted">Average rating: <%= movie.avg_rating %></small></p>
+              <%= link_to 'Reviews', movie_reviews_path(movie), class: "btn btn-dark" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<%= will_paginate @movies %>
+
+
+<%= link_to 'New Movie', new_movie_path, class: "btn btn-success" %>

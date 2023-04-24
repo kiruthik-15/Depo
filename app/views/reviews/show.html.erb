@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Rating:</strong>
+  <% @review.rating.to_i.times do %>
+    ⭐
+  <% end %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @review.comment %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @review.user.email %>
+</p>
+
+<p>
+  <strong>Movie:</strong>
+  <%= @review.movie.title %>
+</p>
+
+<div>
+  <%= link_to 'Edit', edit_movie_review_path( @movie, @review) %>
+  <%= link_to 'Back', movie_reviews_path( @movie) %>
+</div>
